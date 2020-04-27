@@ -1,0 +1,36 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: frequent-flyer
+  namespace: kogito-knative
+spec:
+  template:
+    metadata:
+      name: ferequent-flyer-template
+    spec:
+      containerConcurrency: 0
+      containers:
+        - image: >-
+            quay.io/mouachan/frequent-flyer:latest
+          name: user-container
+          readinessProbe:
+            successThreshold: 1
+            tcpSocket:
+              port: 0
+          resources:
+            limits:
+              cpu: '1'
+              memory: 200M
+            requests:
+              cpu: 400m
+              memory: 100M
+      timeoutSeconds: 300
+  traffic:
+    - latestRevision: false
+      percent: 50
+      revisionName: dmn-notation-v1-vz4v5
+      tag: 'native-1.0'
+    - latestRevision: false
+      percent: 50
+      revisionName: dmn-notation-v2-n9m4g
+      tag: 'native-2.0'
