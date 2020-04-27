@@ -44,7 +44,7 @@
           <dmn:text>"Silver"</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="_77333DF3-270E-4B43-8F60-A4C676B43998">
-          <dmn:text>"bouuuu"</dmn:text>
+          <dmn:text>"Silver : message v1"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
           <dmn:text/>
@@ -58,7 +58,7 @@
           <dmn:text>"Gold"</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="_EB8AA453-5AB9-41FF-A279-DE587A3FA1FB">
-          <dmn:text>"Yeahhhh"</dmn:text>
+          <dmn:text>"Gold : message v1"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
           <dmn:text/>
@@ -74,7 +74,7 @@
             <kie:width>50</kie:width>
             <kie:width>100</kie:width>
             <kie:width>100</kie:width>
-            <kie:width>100</kie:width>
+            <kie:width>558</kie:width>
             <kie:width>100</kie:width>
           </kie:ComponentWidths>
         </kie:ComponentsWidthsExtension>
