@@ -58,7 +58,7 @@
           <dmn:text>"Gold"</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="_EB8AA453-5AB9-41FF-A279-DE587A3FA1FB">
-          <dmn:text>"Gold : message v2"</dmn:text>
+          <dmn:text>"Gold : message v1"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
           <dmn:text/>
