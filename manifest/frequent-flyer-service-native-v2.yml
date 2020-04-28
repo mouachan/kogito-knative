@@ -1,11 +1,11 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: frequent-flyer
+  name: frequent-flyer-native
 spec:
   template:
     metadata:
-      name: frequent-flyer-v2
+      name: frequent-flyer-native-v2
     spec:
       containers:
         - image: >-
