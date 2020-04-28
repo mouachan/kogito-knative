@@ -1,0 +1,20 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: frequent-flyer-java
+spec:
+  template:
+    metadata:
+      name: frequent-flyer-java-v1
+    spec:
+      containers:
+        - image: >-
+            quay.io/mouachan/frequent-flyer:java-1.0
+          env:
+            - name: JAVA_OPTS
+              value: "-Dvertx.cacheDirBase=/work/vertx"
+      imagePullSecrets:
+        - name: quay-secret
+
+
+

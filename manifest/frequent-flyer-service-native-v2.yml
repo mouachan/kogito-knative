@@ -1,0 +1,16 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: frequent-flyer-native
+spec:
+  template:
+    metadata:
+      name: frequent-flyer-native-v2
+    spec:
+      containers:
+        - image: >-
+            quay.io/mouachan/frequent-flyer:native-2.0
+      imagePullSecrets:
+        - name: quay-secret
+
+
