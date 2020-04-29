@@ -23,7 +23,7 @@ oc create secret docker-registry quay-secret \
 ## chekout the source from github
 git clone https://github.com/mouachan/kogito-knative
 
-## basculate from master to v1
+## Chekout frequent-flyer-v1
 git checkout frequent-flyer-v1
 
 ## build and generate native container image
@@ -70,7 +70,7 @@ spec:
 git clone https://github.com/mouachan/kogito-knative
 ```
 
-## basculate from master to v1
+## Chekout frequent-flyer-v2
 
 ```
 git checkout frequent-flyer-v2
@@ -125,14 +125,14 @@ frequent-flyer-native   http://frequent-flyer-native.kogito-knative.apps.ocp4.ou
 ![Routing](/img/routing.png)
 
 ## Run the service 
-### Call the service the result will include "message v1"
+Call the service the Message is  "Silver : message v1"
 ```
 MacBook-Pro:kogito-knative mouachani$ curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_score -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Score\":700,\"Status\":\"Silver\"}"
 
 {"Status":"Silver","Score":700,"Message":"Silver : message v1"}
 ```
 
-### Call the service The result should be with message v2
+Call the service, the result is "Silver : message v2"
 ```
 MacBook-Pro:kogito-knative mouachani$ curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_score -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Score\":700,\"Status\":\"Silver\"}"
 
