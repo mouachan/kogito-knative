@@ -125,16 +125,16 @@ frequent-flyer-native   http://frequent-flyer-native.kogito-knative.apps.ocp4.ou
 ![Routing](/img/routing.png)
 
 ## Run the service 
-Call the service the Message is  "Silver : message v1"
+Call the service the Message is  ![#f03c15]"Silver : message v1" `#f03c15`
 ```
 MacBook-Pro:kogito-knative mouachani$ curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_score -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Score\":700,\"Status\":\"Silver\"}"
 
-{"Status":"Silver","Score":700,"Message":"Silver : message v1"}
+{"Status":"Silver","Score":700, ![#f03c15]"Message":"Silver : message v1" `#f03c15` }
 ```
 
-Call the service, the result is "Silver : message v2"
+Call the service, the result is ![#f03c15]"Silver : message v2"
 ```
 MacBook-Pro:kogito-knative mouachani$ curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_score -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Score\":700,\"Status\":\"Silver\"}"
 
-{"Status":"Silver","Score":700,"Message":"Silver : message v2"}
+{"Status":"Silver","Score":700,![#f03c15]"Message":"Silver : message v2" `#f03c15`}
 ```
