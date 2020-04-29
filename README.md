@@ -1,6 +1,8 @@
 
 
-![Ouachani Logo](/img/logo.png) # kogito-knative demo
+![Ouachani Logo](/img/logo.png) 
+
+# kogito-knative demo
 
 ## Goal
 
