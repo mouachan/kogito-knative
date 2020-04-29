@@ -141,14 +141,14 @@ frequent-flyer-native   http://frequent-flyer-native.kogito-knative.apps.ocp4.ou
 
 ## Verify that the routing is 50% 
 
-Call the service `http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_score` the Message is  **_"Silver : message v1"_**
+Call the service `http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_score`, the result is  **_"Silver : message v1"_**
 ```
 MacBook-Pro:kogito-knative mouachani$ curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_score -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Score\":700,\"Status\":\"Silver\"}"
 
 {"Status":"Silver","Score":700, "Message":"Silver : message v1"}
 ```
 
-Call a second time the same service, the result is **_"Silver : message v2"**_
+Call a second time the same service, the result is **_"Silver : message v2"_**
 ```
 MacBook-Pro:kogito-knative mouachani$ curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_score -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Score\":700,\"Status\":\"Silver\"}"
 
