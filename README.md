@@ -20,7 +20,7 @@ oc create secret docker-registry quay-secret \
     --docker-password=password\
     --docker-email=email
 
-## chekout the source from github
+## Checkout the source from github
 git clone https://github.com/mouachan/kogito-knative
 
 ## Chekout frequent-flyer-v1
