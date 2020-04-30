@@ -1,6 +1,4 @@
-
-
-![Ouachani Logo](/img/logo.png) 
+<img align="left" width="100" height="100" src="/img/logo.png"/>
 
 # kogito-knative demo
 
