@@ -6,7 +6,8 @@
 
 ## Goal
 
-This demo uses Quarkus, Kogito and Knative, it aims to : 
+This demo uses Quarkus, Kogito and Knative, it aims to :
+- create a discount service for a traveler based on a business rule 
 - build and push 2 natives images versions on an external registry (Quay) 
 - deploy 2 versions of a servless application on Openshift, apply a 50% routing
 
