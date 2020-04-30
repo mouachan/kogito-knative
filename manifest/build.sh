@@ -23,11 +23,6 @@ docker push quay.io/mouachan/frequent-flyer:native-2.0
 oc apply -f manifest/frequent-flyer-service-native-v2.yml 
 
 
-oc create secret docker-registry quay-secret \
-    --docker-server=quay.io/mouachan \
-    --docker-username=mouachan \
-    --docker-password=it{Sjej7via}2302\
-    --docker-email=mourad.ouachani@gmail.com
 
     oc secrets link builder quay-secret
     oc secrets link default quay-secret --for=pull
