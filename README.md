@@ -1,9 +1,13 @@
-![Ouachani Logo](/img/logo.png)
+
+
+![Ouachani Logo](/img/logo.png) 
+
 # kogito-knative demo
 
 ## Goal
 
-This demo uses Quarkus, Kogito and Knative, it aims to : 
+This demo uses Quarkus, Kogito and Knative, it aims to :
+- create a discount service for a traveler, a dmn rule will calculate a ticket discount depending on the status and the destination city 
 - build and push 2 natives images versions on an external registry (Quay) 
 - deploy 2 versions of a servless application on Openshift, apply a 50% routing
 
@@ -14,28 +18,38 @@ Install :
 - Openshift serverless operator from the operatorhub on your Openshift cluster
 
 ## Create a registry secret
+
+```
 oc create secret docker-registry quay-secret \
     --docker-server=quay.io/username \
     --docker-username=username \
     --docker-password=password\
     --docker-email=email
+
 oc secrets link builder quay-secret
 oc secrets link default quay-secret --for=pull
+```
 
-## chekout the source from github
+## Clone the source from github
+
+```
 git clone https://github.com/mouachan/kogito-knative
+```
 
-## Chekout frequent-flyer-v1
+## Checkout frequent-flyer-v1 brnach
+
+```
 git checkout frequent-flyer-v1
+```
 
-## build and generate native container image
+## Build and generate native container image
 
 ```
 ./mvnw clean package  -Dquarkus.container-image.build=true -Dquarkus.container-image.name=frequent-flyer -Dquarkus.container-image.tag=native-1.0 -Pnative  -Dquarkus.native.container-build=true 
 
 ```
 
-## Push the generated image to your registry (change the username by yours)
+## Push the image to your registry (change the username by yours)
 
 Make sure that you are connected to your images registry and create a repo named frequent-flyer
 ```
@@ -43,7 +57,7 @@ docker tag 'username -to be changed -'/frequent-flyer:native-1.0 quay.io/'userna
 docker push quay.io/'username -to be changed -'/frequent-flyer:native-1.0
 ```
 
-## apply the service v1
+## Apply the service v1
 
 Connect to your openshift cluster and apply the service (it will create a new revision with version 2)
 ```
@@ -66,18 +80,20 @@ spec:
         - name: quay-secret" | oc apply -f -
 ```
 
-## Get the source from github
+## Clone the source from github
 
 ```
 git clone https://github.com/mouachan/kogito-knative
 ```
 
-## Chekout frequent-flyer-v2
+## Checkout frequent-flyer v2 branch
 
 ```
 git checkout frequent-flyer-v2
 ```
-## build and generate native container image
+
+## Build and generate native container image
+
 ```
 ./mvnw clean package  -Dquarkus.container-image.build=true -Dquarkus.container-image.name=frequent-flyer -Dquarkus.container-image.tag=native-2.0 -Pnative  -Dquarkus.native.container-build=true 
 
@@ -91,7 +107,7 @@ docker tag 'username - to be changed -'/frequent-flyer:native-2.0 quay.io/'usern
 docker push quay.io/'username - to be changed -'/frequent-flyer:native-1.0
 ```
 
-## apply the service v2
+## Apply the service v2
 
 Connect to your openshift cluster and apply the service (it will create a new revision with image version 2)
 
@@ -116,6 +132,7 @@ spec:
 ```
 
 ## Get the route
+
 ```
 MacBook-Pro:kogito-knative mouachani$ kn route list
 NAME                    URL                                                                  READY
@@ -126,17 +143,28 @@ frequent-flyer-native   http://frequent-flyer-native.kogito-knative.apps.ocp4.ou
 ## Apply 50% routing for each service from Openshift console 
 ![Routing](/img/routing.png)
 
-## Run the service 
-Call the service the Message is  "Silver : message v1"
-```
-MacBook-Pro:kogito-knative mouachani$ curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_score -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Score\":700,\"Status\":\"Silver\"}"
+## Verify that the routing is 50% 
 
-{"Status":"Silver","Score":700,"Message":"Silver : message v1"}
+Call the service `http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_discount`, the result is  **_"Discount": 20_**
+```
+MacBook-Pro:kogito-knative mouachani$ curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_discount -H "accept: application/json" -H "Content-Type: application/json" -d ""{\"Status\":\"Silver\",\"From\":\"Paris\",\"To\":\"New York\"}"
+
+{
+  "Status": "Silver",
+  "Discount": 20,
+  "From": "Paris",
+  "To": "New York"
+}
 ```
 
-Call the service, the result is "Silver : message v2"
+Call a second time the same service, the result is **_"Discount": 40_**
 ```
-MacBook-Pro:kogito-knative mouachani$ curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_score -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Score\":700,\"Status\":\"Silver\"}"
+MacBook-Pro:kogito-knative mouachani$ curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_discount -H "accept: application/json" -H "Content-Type: application/json" -d ""{\"Status\":\"Silver\",\"From\":\"Paris\",\"To\":\"New York\"}"
 
-{"Status":"Silver","Score":700,"Message":"Silver : message v2"}
+{
+  "Status": "Silver",
+  "Discount": 40,
+  "From": "Paris",
+  "To": "New York"
+}
 ```
