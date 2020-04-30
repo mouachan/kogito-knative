@@ -22,29 +22,8 @@ docker tag mouachani/frequent-flyer:native-2.0 quay.io/mouachan/frequent-flyer:n
 docker push quay.io/mouachan/frequent-flyer:native-2.0
 oc apply -f manifest/frequent-flyer-service-native-v2.yml 
 
-
-
-
-    oc secrets link builder quay-secret
-    oc secrets link default quay-secret --for=pull
-
-
-    curltime -X POST "http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_score" --data '{"Score":700, "Status":"Silver"}' 
-
-    curl -X POST "http://native-v2-frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_score" --data '{"Score":700, "Status":"Silver"}' 
-
-
-    curl -X POST http://frequent-flyer-java.kogito-knative.apps.ocp4.ouachani.net/frequent_score --data '{"Score":700, "Status":"Silver"}' 
-
-
-./manifest/curltime  -X POST "http://frequent-flyer-java.kogito-knative.apps.ocp4.ouachani.net/frequent_score" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Score\":700,\"Status\":\"Silver\"}"
-
-curl -X POST "http://frequent-flyer-java.kogito-knative.apps.ocp4.ouachani.net/frequent_score" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Score\":700,\"Status\":\"Silver\"}"
-
-curl -X POST "http://localhost:8090/frequent_score" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Score\":700,\"Status\":\"Silver\"}"
-
+#curl local app springboot
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{ "model-namespace" : "https://kiegroup.org/dmn/_BA94EDFD-79C3-49C4-80D6-D96462F9BA2C", "model-name" : "frequent_score", "decision-name" : [ ], "decision-id" : [ ], "dmn-context" : {"Score":700,"Status":"Silver"}}' 'http://localhost:8090/rest/server/containers/frequent-flyer-sb-kjar-1_0-SNAPSHOT/dmn'
-
-
+#curl openshift
 curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_score -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Score\":700,\"Status\":\"Silver\"}"
 

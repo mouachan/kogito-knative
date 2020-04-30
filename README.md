@@ -24,6 +24,9 @@ oc create secret docker-registry quay-secret \
     --docker-username=username \
     --docker-password=password\
     --docker-email=email
+
+oc secrets link builder quay-secret
+oc secrets link default quay-secret --for=pull
 ```
 
 ## Clone the source from github
