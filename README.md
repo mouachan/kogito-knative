@@ -7,9 +7,18 @@
 ## Goal
 
 This demo uses Quarkus, Kogito and Knative, it aims to :
-- create a discount service for a traveler based on a business rule 
+- create a discount service for a traveler, a dmn rule will calculate a ticket discount depending on the status and the destination city 
 - build and push 2 natives images versions on an external registry (Quay) 
 - deploy 2 versions of a servless application on Openshift, apply a 50% routing
+
+## Business Rules
+DMN Discount Business Decision Service
+![DMN decision service 1](/img/dmn_decision_service.png) 
+DMN Decision Table V1
+![DMN version 1](/img/dmn_decision_table_v1.png) 
+
+DMN Decision Table V2
+![DMN version 2](/img/dmn_decision_table_v2.png) 
 
 ## Prerequesties 
 Install :
@@ -145,16 +154,28 @@ frequent-flyer-native   http://frequent-flyer-native.kogito-knative.apps.ocp4.ou
 
 ## Verify that the routing is 50% 
 
-Call the service `http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_score`, the result is  **_"Silver : message v1"_**
-```
-MacBook-Pro:kogito-knative mouachani$ curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_score -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Score\":700,\"Status\":\"Silver\"}"
+Depending on the service routing you will have one of the below results,  using this input data : `{\"Status\":\"Silver\",\"From\":\"Paris\",\"To\":\"New York\"}`
 
-{"Status":"Silver","Score":700, "Message":"Silver : message v1"}
+**_"Discount": 20_**
+```
+MacBook-Pro:kogito-knative mouachani$ curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_discount -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Status\":\"Silver\",\"From\":\"Paris\",\"To\":\"New York\"}"
+
+{
+  "Status": "Silver",
+  "Discount": 20,
+  "From": "Paris",
+  "To": "New York"
+}
 ```
 
-Call a second time the same service, the result is **_"Silver : message v2"_**
+**_"Discount": 40_**
 ```
-MacBook-Pro:kogito-knative mouachani$ curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_score -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Score\":700,\"Status\":\"Silver\"}"
+MacBook-Pro:kogito-knative mouachani$ curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_discount -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Status\":\"Silver\",\"From\":\"Paris\",\"To\":\"New York\"}"
 
-{"Status":"Silver","Score":700,"Message":"Silver : message v2"}
+{
+  "Status": "Silver",
+  "Discount": 40,
+  "From": "Paris",
+  "To": "New York"
+}
 ```
