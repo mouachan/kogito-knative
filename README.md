@@ -1,4 +1,4 @@
-<img align="left" width="100" height="100" src="/img/logo.png"/>
+<p><img align="left" width="100" height="100" src="/img/logo.png"></p>
 <br/>
 
 # kogito-knative demo
