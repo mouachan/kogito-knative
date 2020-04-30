@@ -24,6 +24,7 @@ oc apply -f manifest/frequent-flyer-service-native-v2.yml
 
 
 
+
     oc secrets link builder quay-secret
     oc secrets link default quay-secret --for=pull
 
