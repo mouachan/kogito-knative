@@ -12,12 +12,17 @@ This demo uses Quarkus, Kogito and Knative, it aims to :
 - deploy 2 versions of a servless application on Openshift, apply a 50% routing
 
 ## Business Rules
+
 DMN Discount Business Decision Service
+
 ![DMN decision service 1](/img/dmn_decision_service.png) 
+
 DMN Decision Table V1
+
 ![DMN version 1](/img/dmn_decision_table_v1.png) 
 
 DMN Decision Table V2
+
 ![DMN version 2](/img/dmn_decision_table_v2.png) 
 
 ## Prerequesties 
