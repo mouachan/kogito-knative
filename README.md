@@ -1,5 +1,6 @@
-<p><img align="left" width="100" height="100" src="/img/logo.png"></p>
-<br/>
+
+
+![Ouachani Logo](/img/logo.png) 
 
 # kogito-knative demo
 
@@ -11,17 +12,12 @@ This demo uses Quarkus, Kogito and Knative, it aims to :
 - deploy 2 versions of a servless application on Openshift, apply a 50% routing
 
 ## Business Rules
-
 DMN Discount Business Decision Service
-
 ![DMN decision service 1](/img/dmn_decision_service.png) 
-
 DMN Decision Table V1
-
 ![DMN version 1](/img/dmn_decision_table_v1.png) 
 
 DMN Decision Table V2
-
 ![DMN version 2](/img/dmn_decision_table_v2.png) 
 
 ## Prerequesties 
@@ -58,7 +54,7 @@ git checkout frequent-flyer-v1
 ## Build and generate native container image
 
 ```
-./mvnw clean package  -Dquarkus.container-image.build=true -Dquarkus.container-image.name=frequent-flyer -Dquarkus.container-image.tag=native-1.0 -Pnative  -Dquarkus.native.container-build=true 
+./mvnw clean package  -Dquarkus.container-image.build=true -Dquarkus.container-image.name=ff-discount-svc -Dquarkus.container-image.tag=native-1.0 -Pnative  -Dquarkus.native.container-build=true 
 
 ```
 
@@ -66,8 +62,8 @@ git checkout frequent-flyer-v1
 
 Make sure that you are connected to your images registry and create a repo named frequent-flyer
 ```
-docker tag 'username -to be changed -'/frequent-flyer:native-1.0 quay.io/'username -to be changed -'/frequent-flyer:native-1.0
-docker push quay.io/'username -to be changed -'/frequent-flyer:native-1.0
+docker tag 'mouachan/ff-discount-svc:native-1.0 quay.io/mouachan/frequent-flyer/ff-discount-svc:native-1.0
+docker push quay.io/mouachan/frequent-flyer/ff-discount-svc:native-1.0
 ```
 
 ## Apply the service v1
@@ -77,15 +73,15 @@ Connect to your openshift cluster and apply the service (it will create a new re
 echo "apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: frequent-flyer-native
+  name: ff-discount-svc-native
 spec:
   template:
     metadata:
-      name: frequent-flyer-native-v1
+      name: ff-discount-svc-native-v1
     spec:
       containers:
         - image: >-
-            quay.io/'username -to be changed -'/frequent-flyer:native-1.0
+            quay.io/mouachan/frequent-flyer/ff-discount-svc:native-1.0
           env:
             - name: JAVA_OPTS
               value: "-Dvertx.cacheDirBase=/work/vertx"
@@ -108,7 +104,7 @@ git checkout frequent-flyer-v2
 ## Build and generate native container image
 
 ```
-./mvnw clean package  -Dquarkus.container-image.build=true -Dquarkus.container-image.name=frequent-flyer -Dquarkus.container-image.tag=native-2.0 -Pnative  -Dquarkus.native.container-build=true 
+./mvnw clean package  -Dquarkus.container-image.build=true -Dquarkus.container-image.name=ff-discount-svc -Dquarkus.container-image.tag=native-2.0 -Pnative  -Dquarkus.native.container-build=true 
 
 ```
 ## Push the generated image to your registry (change the username by yours)
@@ -116,8 +112,8 @@ git checkout frequent-flyer-v2
 Make sure that you are connected to your registry hub and create a repo named 'frequent-flyer'
 
 ```
-docker tag 'username - to be changed -'/frequent-flyer:native-2.0 quay.io/'username -to be changed -'/frequent-flyer:native-2.0
-docker push quay.io/'username - to be changed -'/frequent-flyer:native-1.0
+docker tag mouachan/ff-discount-svc:native-2.0 quay.io/mouachan/frequent-flyer/ff-discount-svc:native-2.0
+docker push quay.io/mouachan/frequent-flyer/ff-discount-svc:native-1.0
 ```
 
 ## Apply the service v2
@@ -128,15 +124,15 @@ Connect to your openshift cluster and apply the service (it will create a new re
 echo "apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: frequent-flyer-native
+  name: ff-discount-svc-native
 spec:
   template:
     metadata:
-      name: frequent-flyer-native-v2
+      name: ff-discount-svc-native-v2
     spec:
       containers:
         - image: >-
-            quay.io/'username -to be changed -'/frequent-flyer:native-2.0
+            quay.io/mouachan/frequent-flyer/ff-discount-svc:native-2.0
           env:
             - name: JAVA_OPTS
               value: "-Dvertx.cacheDirBase=/work/vertx"
@@ -149,8 +145,7 @@ spec:
 ```
 MacBook-Pro:kogito-knative mouachani$ kn route list
 NAME                    URL                                                                  READY
-frequent-flyer-java     http://frequent-flyer-java.kogito-knative.apps.ocp4.ouachani.net     True
-frequent-flyer-native   http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net   True 
+frequent-flyer-native   http://ff-discount-svc-native.kogito-knative.apps.ocp4.ouachani.net   True 
 ```
 
 ## Apply 50% routing for each service from Openshift console 
@@ -162,7 +157,7 @@ Depending on the service routing you will have one of the below results,  using 
 
 **_"Discount": 20_**
 ```
-MacBook-Pro:kogito-knative mouachani$ curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_discount -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Status\":\"Silver\",\"From\":\"Paris\",\"To\":\"New York\"}"
+MacBook-Pro:kogito-knative mouachani$ curl -X POST http://ff-discount-svc-native.kogito-knative.apps.ocp4.ouachani.net/frequent_discount -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Status\":\"Silver\",\"From\":\"Paris\",\"To\":\"New York\"}"
 
 {
   "Status": "Silver",
@@ -174,7 +169,7 @@ MacBook-Pro:kogito-knative mouachani$ curl -X POST http://frequent-flyer-native.
 
 **_"Discount": 40_**
 ```
-MacBook-Pro:kogito-knative mouachani$ curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_discount -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Status\":\"Silver\",\"From\":\"Paris\",\"To\":\"New York\"}"
+MacBook-Pro:kogito-knative mouachani$ curl -X POST http://ff-discount-svc-native.kogito-knative.apps.ocp4.ouachani.net/frequent_discount -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Status\":\"Silver\",\"From\":\"Paris\",\"To\":\"New York\"}"
 
 {
   "Status": "Silver",
