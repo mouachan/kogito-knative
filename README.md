@@ -62,8 +62,8 @@ git checkout frequent-flyer-v1
 
 Make sure that you are connected to your images registry and create a repo named frequent-flyer
 ```
-docker tag 'mouachan/ff-discount-svc:native-1.0 quay.io/mouachan/frequent-flyer/ff-discount-svc:native-1.0
-docker push quay.io/mouachan/frequent-flyer/ff-discount-svc:native-1.0
+docker tag 'mouachan/ff-discount-svc:native-1.0 quay.io/mouachan/ff-discount-svc:native-1.0
+docker push quay.io/mouachan/ff-discount-svc:native-1.0
 ```
 
 ## Apply the service v1
@@ -81,7 +81,7 @@ spec:
     spec:
       containers:
         - image: >-
-            quay.io/mouachan/frequent-flyer/ff-discount-svc:native-1.0
+            quay.io/mouachan/ff-discount-svc:native-1.0
           env:
             - name: JAVA_OPTS
               value: "-Dvertx.cacheDirBase=/work/vertx"
@@ -132,7 +132,7 @@ spec:
     spec:
       containers:
         - image: >-
-            quay.io/mouachan/frequent-flyer/ff-discount-svc:native-2.0
+            quay.io/mouachan/ff-discount-svc:native-2.0
           env:
             - name: JAVA_OPTS
               value: "-Dvertx.cacheDirBase=/work/vertx"
