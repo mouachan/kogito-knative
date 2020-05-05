@@ -62,8 +62,8 @@ git checkout frequent-flyer-v1
 
 Make sure that you are connected to your images registry and create a repo named frequent-flyer
 ```
-docker tag 'mouachan/ff-discount-svc:native-1.0 quay.io/mouachan/frequent-flyer/ff-discount-svc:native-1.0
-docker push quay.io/mouachan/frequent-flyer/ff-discount-svc:native-1.0
+docker tag 'mouachan/ff-discount-svc:native-1.0 quay.io/mouachan/ff-discount-svc:native-1.0
+docker push quay.io/mouachan/ff-discount-svc:native-1.0
 ```
 
 ## Apply the service v1
@@ -81,7 +81,7 @@ spec:
     spec:
       containers:
         - image: >-
-            quay.io/mouachan/frequent-flyer/ff-discount-svc:native-1.0
+            quay.io/mouachan/ff-discount-svc:native-1.0
           env:
             - name: JAVA_OPTS
               value: "-Dvertx.cacheDirBase=/work/vertx"
@@ -132,7 +132,7 @@ spec:
     spec:
       containers:
         - image: >-
-            quay.io/mouachan/frequent-flyer/ff-discount-svc:native-2.0
+            quay.io/mouachan/ff-discount-svc:native-2.0
           env:
             - name: JAVA_OPTS
               value: "-Dvertx.cacheDirBase=/work/vertx"
@@ -178,3 +178,6 @@ MacBook-Pro:kogito-knative mouachani$ curl -X POST http://ff-discount-svc-native
   "To": "New York"
 }
 ```
+
+
+#for i in {1..20}; do sleep 1 ;  curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_discount -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Status\":\"Silver\",\"From\":\"Paris\",\"To\":\"New York\"}";done

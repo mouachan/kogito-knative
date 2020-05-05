@@ -1,15 +1,15 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: frequent-flyer-native
+  name: ff-discount-svc-native
 spec:
   template:
     metadata:
-      name: frequent-flyer-native-v2
+      name: ff-discount-svc-native-v2
     spec:
       containers:
         - image: >-
-            quay.io/mouachan/frequent-flyer:native-2.0
+            quay.io/mouachan/ff-discount-svcr:native-2.0
       imagePullSecrets:
         - name: quay-secret
 
