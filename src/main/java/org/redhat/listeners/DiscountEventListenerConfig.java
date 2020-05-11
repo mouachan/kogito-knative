@@ -9,6 +9,6 @@ import org.kie.addons.monitoring.rule.PrometheusMetricsDroolsListener;
 public class DiscountEventListenerConfig extends DefaultRuleEventListenerConfig {
 
     public DiscountEventListenerConfig() {
-        super( new PrometheusMetricsDroolsListener("ff-discount"));
+        super( new PrometheusMetricsDroolsListener("ff-discount-svc"));
     }
 }
