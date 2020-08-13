@@ -35,3 +35,6 @@ pom.xml.versionsBackup
 release.properties
 #nodejs
 node-module/
+./src/main/java/org/redhat/listeners/docker.yml
+github-secret.yaml
+quay-sercret.yaml
