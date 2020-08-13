@@ -36,5 +36,5 @@ release.properties
 #nodejs
 node-module/
 ./src/main/java/org/redhat/listeners/docker.yml
-github-secret.yaml
-quay-sercret.yaml
+./github-secret.yaml
+./quay-sercret.yaml
