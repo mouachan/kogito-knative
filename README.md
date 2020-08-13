@@ -180,4 +180,6 @@ MacBook-Pro:kogito-knative mouachani$ curl -X POST http://ff-discount-svc-native
 ```
 
 
-#for i in {1..20}; do sleep 1 ;  curl -X POST http://frequent-flyer-native.kogito-knative.apps.ocp4.ouachani.net/frequent_discount -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Status\":\"Silver\",\"From\":\"Paris\",\"To\":\"New York\"}";done
+#for i in {1..200}; do  curl -X POST http://ff-discount-svc-native.kogito-knative.apps.ocp4.ouachani.net/frequent_discount -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Status\":\"Silver\",\"From\":\"Paris\",\"To\":\"New York\"}";done
+
+seq 1 200 | xargs -n1 -P10  curl -X POST http://ff-discount-svc-native.kogito-knative.apps.ocp4.ouachani.net/frequent_discount -H "accept: application/json" -H "Content-Type: application/json" -d "{\"Status\":\"Silver\",\"From\":\"Paris\",\"To\":\"New York\"}"

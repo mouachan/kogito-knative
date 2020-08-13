@@ -3,7 +3,7 @@ package org.redhat.listeners;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.drools.core.config.DefaultRuleEventListenerConfig;
-import org.kie.addons.monitoring.rule.PrometheusMetricsDroolsListener;
+import org.kie.kogito.monitoring.rule.PrometheusMetricsDroolsListener;
 
 @ApplicationScoped
 public class DiscountEventListenerConfig extends DefaultRuleEventListenerConfig {
